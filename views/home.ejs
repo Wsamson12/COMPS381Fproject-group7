@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Collecting System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <script src="https://kit.fontawesome.com/61b76a306e.js" crossorigin="anonymous"></script>
+   <style>
+   body{
+   background-color:#0AF6EB;
+}
+   h3{
+   text-align:center;
+   margin-top:20px;
+   }
+   </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">
+            <i class="fa-solid fa-book-open-reader" style="color: #db1414;"></i>
+            <span class="header-text">Book Collecting System</span>
+        </div>
+        <ul>
+            <li><a href="/home">Home</a></li>
+            <li><a href="/BookList">BookList</a></li>
+        </ul>
+        <img src="/graphics/icons8-user-48.png" alt="" class="user-pic" onclick="toggleMenu()">
+        <div class="sub-menu-wrap" id="subMenu">
+            <div class="sub-menu">
+                <div class="user-info">
+                    <img src="/graphics/icons8-user-48.png" alt="">
+                </div>
+                <%= username %>
+                <hr>          
+                <a href="/logout" class="sub-menu-link">
+                    <img src="/graphics/icons8-logout-48.png" alt="">
+                    <p>Logout</p>
+                    <span>></span>
+                </a>
+            </div>
+        </div>
+    </nav>
+<h3>Welcome to the  Book Co llecting System!!!</h3>
+  <img src="/graphics/book.png" alt="">
+  <img src="/graphics/library.png" alt="">
+    <script>
+        let subMenu = document.getElementById("subMenu");
+
+        function toggleMenu() {
+            subMenu.classList.toggle("open-menu");
+        }
+    </script>
+</body>
+</html>
+
+
+
