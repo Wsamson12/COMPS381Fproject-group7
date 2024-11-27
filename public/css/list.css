@@ -1,0 +1,201 @@
+.search-box-wrapper {
+            position: relative;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .search-box {
+            padding: 8px 35px 8px 15px; /* Make room for the icon */
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* CSS for table headings */
+.table th {
+  background-color: #f2f2f2;
+  color: #333;
+  padding: 10px;
+  text-align: left;
+}
+
+/* CSS for table cells */
+.table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+/* CSS for table rows */
+.table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* CSS for table action buttons */
+.table td button {
+
+  color: black;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+/* CSS for table button spacing */
+.table td button + button {
+  margin-left: 5px;
+}
+
+
+
+#TITLE {
+  background-color: darkseagreen;
+  text-align: center;
+}
+
+
+.hidden {
+  display: none;
+}
+
+.table td div {
+  padding: 5px;
+}
+
+.button-34 {
+  background: #5E5DF0;
+  border-radius: 999px;
+  box-shadow: #5E5DF0 0 10px 20px -10px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-family: Inter, Helvetica, "Apple Color Emoji", "Segoe UI Emoji", NotoColorEmoji, "Noto Color Emoji", "Segoe UI Symbol", "Android Emoji", EmojiSymbols, -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  opacity: 1;
+  outline: 0 solid transparent;
+  padding: 8px 18px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: fit-content;
+  word-break: break-word;
+  border: 0;
+}
+
+.delete-button,
+.edit-button {
+  display: inline-block;
+  padding: 12px 16px;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.delete-button {
+  background-color: #ff4d4d;
+  /* 刪除按鈕背景顏色為紅色 */
+}
+
+.edit-button {
+  background-color: #4CAF50;
+  /* 編輯按鈕背景顏色為綠色 */
+}
+
+.delete-button:hover,
+.edit-button:hover {
+  transform: scale(1.1);
+  /* 按鈕放大 */
+}
+
+.button-34 {
+  background: #5E5DF0;
+  border-radius: 999px;
+  box-shadow: #5E5DF0 0 10px 20px -10px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-family: Inter, Helvetica, "Apple Color Emoji", "Segoe UI Emoji", NotoColorEmoji, "Noto Color Emoji", "Segoe UI Symbol", "Android Emoji", EmojiSymbols, -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  opacity: 1;
+  outline: 0 solid transparent;
+  padding: 8px 18px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: fit-content;
+  word-break: break-word;
+  border: 0;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  /* Center the button horizontally */
+  margin: 20px 0;
+  /* Add some vertical space */
+}
+
+  /* Modal styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 999; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.7); /* Black w/ opacity */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+            max-width: 500px;
+            border-radius: 10px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Form styles */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
