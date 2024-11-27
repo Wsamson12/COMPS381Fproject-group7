@@ -141,7 +141,7 @@ app.get('/user/latestuser', async (req, res) => {
         //get all data from latest user created
         res.json(user);
     }catch (error){
-        console.error(error);
+        console.error(error); 
         res.status(500).send('Server error');
     }
 });
