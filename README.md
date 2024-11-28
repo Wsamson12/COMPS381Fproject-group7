@@ -199,6 +199,40 @@ Example:
 - **Search a Book:**
   curl http://localhost:3000/search?bookName=Hobbit
 
+## File Structure Tree
+```
+COMPS381Fproject-group7
+|
+|-- Models
+|   |-- book.js
+|   |-- user.js
+|
+|-- node_modules
+|
+|-- public
+|   |-- css
+|   | |-- list.css
+|   | |-- navbar.css
+|   |
+|   |-- graphics
+|
+|-- views
+|   |-- BookList.ejs
+|   |-- RegisterMessage.ejs
+|   |-- home.ejs
+|   |-- login.ejs
+|   |-- message.ejs
+|   |-- register.ejs
+|   
+|-- README.md
+|-- package-lock.json
+|-- package.json
+|-- server.js
+```
+
+
+
+
 ## Library used
 
 ### NPM packages
