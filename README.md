@@ -69,7 +69,7 @@ For computers that do not have git installed, install it [here](https://https://
 1. To set up, clone the repository to your computer using git
 
 ```
-git clone 
+git clone https://github.com/Wsamson12/COMPS381Fproject-group7.git
 ```
 
 2. Open the cloned folder in command line and install all required dependencies
@@ -100,21 +100,24 @@ Below are the user steps for login, register and conduct crud process of the boo
 
 - **Sign Up Steps:**
   1. Navigate to the registration page.
-  2. Fill out the form with the required information (username, password, email, etc.).
+  2. Fill out the form with the required information (username, password).
   3. Click the "Register" button to create a new account.
+  4. If regristration sucessful message shows up, meaning account has been sucessfully created
 
 #### Login/Logout Pages
+
+The following are the general process of login in, the information of the user are for testing intput:
 
 - **Valid Login Information:**
 
   - Username: `t01`
-  - Password: `12101` （it will be hashed due to security reason)
+  - Password: `12101` （it will be hashed due to security)
 - **Sign In Steps:**
 
   1. Navigate to the login page.
   2. Enter the username and password.
   3. Click the "Login" button to access the system.
-  4. To logout, click the "Logout" button in the navigation menu.
+  4. To logout, click the "Logout" button in the navigation menu of the book system home page.
 
 #### CRUD Web Pages
 
@@ -139,6 +142,7 @@ Below are the user steps for login, register and conduct crud process of the boo
 #### RESTful CRUD Services
 
 - **API Endpoints:**
+
   - **Register User:**
 
     - **Method:** POST
@@ -159,33 +163,30 @@ Below are the user steps for login, register and conduct crud process of the boo
 
     - **Method:** GET
     - **Path:** `/message`
+  - **Create Book:**
 
-//not yet
+    - **Method:** POST
+    - **Path:** `/create`
+  - **Read Book list:**
 
-- **Create Book:**
+    - **Method:** GET
+    - **Path:** `/BookList`
+  - **Update Book:**
 
-  - **Method:** POST
-  - **Path:** `/create`
-- **Read Book list:**
+    - **Method:** PUT
+    - **Path:** `/update/:id`
+  - **Delete Book:**
 
-  - **Method:** GET
-  - **Path:** `/BookList`
-- **Update Book:**
+    - **Method:** DELETE
+    - **Path:** `/delete/:id`
+  - **Search Books**
 
-  - **Method:** PUT
-  - **Path:** `/update/:id`
-- **Delete Book:**
-
-  - **Method:** DELETE
-  - **Path:** `/delete/:id`
-- **Search Books**
-
-  - **Method:** GET
-  - **Path:** `/search`
+    - **Method:** GET
+    - **Path:** `/search`
 
 ### Testing with CURL
 
-> Example:
+Example:
 
 - **Register User:**
   curl -X POST http://localhost:3000/register -H "Content-Type: application/json" -d '{"username": "t01", "password": "12101"}'
