@@ -12,8 +12,8 @@ This project was undertaken as a group assignment for the Server Side and Cloud 
 **Group Info:**
 **Group No.:** [Group 7]
 
-- **Students’ Names:** [Student 1 Name], [Student 2 Name], [Student 3 Name], [Student 4 Name]
-- **Student IDs:** [SID 1], [SID 2], [SID 3], [SID 4]
+- **Students’ Names:** 13506699 Wong Ho Shun Sang , [Student 2 Name], [Student 3 Name], [Student 4 Name]
+
 
 ## Project File Introduction
 
