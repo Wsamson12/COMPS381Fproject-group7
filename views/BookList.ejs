@@ -230,51 +230,19 @@
     
    async function searchBooks() {
     const searchTerm = document.getElementById("searchBox").value;
-    const tableBody = document.getElementById('bookTableBody');
-
-    if (searchTerm.trim() === '') {
-        // If the search box is empty, refresh the book list
-        const response = await fetch('/BookList');
-        const books = await response.json();
-
-        tableBody.innerHTML = ''; // Clear existing rows
-
-        books.forEach(book => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${book.name}</td>
-                <td>${book.type}</td>
-                <td><img src="${book.image}" alt="${book.name}" width="50" /></td>
-                <td>${book.description}</td>
-                <td>
-                    <form onsubmit="event.preventDefault(); deleteBook('${book._id}');" style="display:inline;">
-                        <button type="submit" class="delete-button">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
-                    </form>
-                    <a href="/update/${book._id}">
-                        <button class="edit-button">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                        </button>
-                    </a>
-                </td>
-            `;
-            tableBody.appendChild(row);
-        });
-        return; // Exit the function early
-    }
-
-    // Perform search when input is not empty
     const response = await fetch(`/search?bookName=${encodeURIComponent(searchTerm)}`);
     const books = await response.json();
 
+    const tableBody = document.getElementById('bookTableBody');
     tableBody.innerHTML = ''; // Clear existing rows
 
-    if (books.length === 0) {
+    if (books.length === 0 && searchTerm) {
+        // If no books found and a search term is present
         const row = document.createElement('tr');
         row.innerHTML = '<td colspan="5">No books found</td>'; // Indicate no results
         tableBody.appendChild(row);
     } else {
+        // Populate the table with the books
         books.forEach(book => {
             const row = document.createElement('tr');
             row.innerHTML = `
