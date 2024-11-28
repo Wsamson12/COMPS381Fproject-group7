@@ -1,71 +1,281 @@
-async function searchBooks() {
-    const searchTerm = document.getElementById("searchBox").value;
-    const tableBody = document.getElementById('bookTableBody');
+<!DOCTYPE html>
+<html>
 
-    if (searchTerm.trim() === '') {
-        // If the search box is empty, refresh the book list
-        const response = await fetch('/BookList');
+<head>
+    <title>Book Collecting System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/list.css">
+    <script src="https://kit.fontawesome.com/61b76a306e.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <nav>
+        <div class="logo">
+            <i class="fa-solid fa-book-open-reader" style="color: #db1414;"></i>
+            <span class="header-text">Book Collecting System</span>
+        </div>
+        <ul>
+            <li><a href="/home">Home</a></li>
+            <li><a href="/BookList">BookList</a></li>
+        </ul>
+        <img src="/graphics/icons8-user-48.png" alt="" class="user-pic" onclick="toggleMenu()">
+        <div class="sub-menu-wrap" id="subMenu">
+            <div class="sub-menu">
+                <div class="user-info">
+                    <img src="/graphics/icons8-user-48.png" alt="">
+                </div>
+                <%= username %>
+                <hr>             
+                <a href="/logout" class="sub-menu-link">
+                    <img src="/graphics/icons8-logout-48.png" alt="">
+                    <p>Logout</p>
+                    <span>></span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <br>
+    <div class="button-container">
+        <button class="button-34" id="createBookBtn" role="button">Create Book</button>
+    </div>
+
+    <!-- Create Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h2>Create Book</h2>
+            <form id="bookForm" action="/create" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="bookName">Book Name:</label>
+                    <input type="text" id="bookName" name="bookName" required>
+                </div>
+                <div class="form-group">
+                    <label for="bookType">Type:</label>
+                    <input type="text" id="bookType" name="bookType" required>
+                </div>
+                <div class="form-group">
+                    <label for="image">Image:</label>
+                    <input type="file" id="image" name="image" required>
+                </div>
+                <div class="form-group">
+                    <label for="bookDescription">Description:</label>
+                    <input type="text" id="bookDescription" name="bookDescription" required>
+                </div>
+                <button type="submit" class="button-34">Submit</button>
+            </form>
+        </div>
+    </div>
+    <br>
+
+    <table class="table">
+        <tr>
+            <th colspan="5" id="TITLE">Book List<br>  
+           
+<div class="search-box-wrapper" id="searchBoxContainer">
+    <input type="text" class="search-box" id="searchBox" placeholder="Search by book name..." oninput="searchBooks()">
+</div>
+</th>
+        </tr>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Image</th>
+            <th>Description</th>
+            <th>Action</th>
+        </tr>
+        <tbody id="bookTableBody">
+        <% books.forEach(book => { %>
+        <tr>
+            <td><%= book.name %></td>
+            <td><%= book.type %></td>
+            <td><img src="<%= book.image %>" alt="<%= book.name %>" width="100"></td>
+            <td><%= book.description %></td>
+            <td>
+                <form onsubmit="event.preventDefault(); deleteBook('<%= book._id %>');" style="display:inline;">
+                    <button type="submit" class="delete-button" role="button">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </form>
+                <button class="edit-button" onclick="openUpdateForm('<%= book._id %>', '<%= book.name %>', '<%= book.type %>', '<%= book.image %>', '<%= book.description %>')">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </button>
+            </td>
+        </tr>
+        <% }); %>
+        </tbody>
+    </table>
+
+    <!-- Update Modal -->
+    <div id="updateModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeUpdateModal">&times;</span>
+            <h2>Update Book</h2>
+            <form id="updateForm" action="" method="POST" enctype="multipart/form-data">
+                <input type="hidden" id="updateBookId" name="bookId" required>
+                <div class="form-group">
+                    <label for="updateBookName">Book Name:</label>
+                    <input type="text" id="updateBookName" name="bookName" required>
+                </div>
+                <div class="form-group">
+                    <label for="updateBookType">Type:</label>
+                    <input type="text" id="updateBookType" name="bookType" required>
+                </div>
+                <div class="form-group">
+                    <label for="updateImage">Upload New Image (optional):</label>
+                    <input type="file" id="updateImage" name="image">
+                </div>
+                <div class="form-group">
+                    <label for="updateBookDescription">Description:</label>
+                    <input type="text" id="updateBookDescription" name="bookDescription" required>
+                </div>
+                <button type="submit" class="button-34">Update Book</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let subMenu = document.getElementById("subMenu");
+
+        function toggleMenu() {
+            subMenu.classList.toggle("open-menu");
+        }
+
+        var createModal = document.getElementById("myModal");
+        var createBtn = document.getElementById("createBookBtn");
+        var closeCreateModal = document.getElementById("closeModal");
+
+        createBtn.onclick = function() {
+            createModal.style.display = "flex"; 
+        }
+
+        closeCreateModal.onclick = function() {
+            createModal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target === createModal) {
+                createModal.style.display = "none";
+            }
+        }
+
+        // Functions for Update Modal
+        var updateModal = document.getElementById("updateModal");
+        var closeUpdateModal = document.getElementById("closeUpdateModal");
+
+        function openUpdateForm(bookId, bookName, bookType, bookImage, bookDescription) {
+            document.getElementById("updateBookId").value = bookId;
+            document.getElementById("updateBookName").value = bookName;
+            document.getElementById("updateBookType").value = bookType;
+            document.getElementById("updateBookDescription").value = bookDescription;
+
+            // Set the action for the update form dynamically
+            document.getElementById("updateForm").action = "/update/" + bookId;
+
+            updateModal.style.display = "flex";
+        }
+
+        closeUpdateModal.onclick = function() {
+            updateModal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target === updateModal) {
+                updateModal.style.display = "none";
+            }
+        }
+
+        // Update Form Submission
+        document.getElementById("updateForm").onsubmit = function(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    const formData = new FormData(this);
+    const bookId = document.getElementById("updateBookId").value;
+
+    // Send a PUT request using fetch
+    fetch(`/update/${bookId}`, {
+        method: 'PUT',
+        body: formData
+    })
+    .then(response => {
+        if (response.ok) {
+            window.location.href = '/BookList'; // Redirect on success
+        } else {
+            alert('Failed to update the book.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+};
+
+        // Delete function
+        function deleteBook(bookId) {
+    fetch(`/delete/${bookId}`, {
+        method: 'DELETE'
+    })
+    .then(response => {
+        if (response.ok) {
+            window.location.href = '/BookList'; // Redirect on success
+        } else {
+            alert('Failed to delete the book.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+    }
+    
+    async function searchBooks() {
+        const searchTerm = document.getElementById("searchBox").value;
+        const response = await fetch(`/search?bookName=${encodeURIComponent(searchTerm)}`);
         const books = await response.json();
 
+        const tableBody = document.getElementById('bookTableBody');
         tableBody.innerHTML = ''; // Clear existing rows
 
-        books.forEach(book => {
+        if (books.length === 0 && searchTerm) {
+            // If no books found and a search term is present
             const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${book.name}</td>
-                <td>${book.type}</td>
-                <td><img src="${book.image}" alt="${book.name}" width="50" /></td>
-                <td>${book.description}</td>
-                <td>
-                    <form onsubmit="event.preventDefault(); deleteBook('${book._id}');" style="display:inline;">
-                        <button type="submit" class="delete-button">
+            row.innerHTML = '<td colspan="5">No books found</td>'; // Indicate no results
+            tableBody.appendChild(row);
+        } else {
+            // Populate the table with the books
+            books.forEach(book => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${book.name}</td>
+                    <td>${book.type}</td>
+                    <td><img src="${book.image}" alt="${book.name}" width="50" /></td>
+                    <td>${book.description}</td>
+                    <td>
+                        <button class="delete-button" onclick="deleteBook('${book._id}')">
                             <i class="fa-solid fa-trash"></i>
                         </button>
-                    </form>
-                    <a href="/update/${book._id}">
-                        <button class="edit-button">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                        </button>
-                    </a>
-                </td>
-            `;
-            tableBody.appendChild(row);
-        });
-        return; // Exit the function early
+                        <a href="/update/${book._id}">
+                            <button class="edit-button">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                        </a>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
     }
 
-    // Perform search when input is not empty
-    const response = await fetch(`/search?bookName=${encodeURIComponent(searchTerm)}`);
-    const books = await response.json();
-
-    tableBody.innerHTML = ''; // Clear existing rows
-
-    if (books.length === 0) {
-        const row = document.createElement('tr');
-        row.innerHTML = '<td colspan="5">No books found</td>'; // Indicate no results
-        tableBody.appendChild(row);
-    } else {
-        books.forEach(book => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${book.name}</td>
-                <td>${book.type}</td>
-                <td><img src="${book.image}" alt="${book.name}" width="50" /></td>
-                <td>${book.description}</td>
-                <td>
-                    <form onsubmit="event.preventDefault(); deleteBook('${book._id}');" style="display:inline;">
-                        <button type="submit" class="delete-button">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
-                    </form>
-                    <a href="/update/${book._id}">
-                        <button class="edit-button">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                        </button>
-                    </a>
-                </td>
-            `;
-            tableBody.appendChild(row);
-        });
+    async function deleteBook(bookId) {
+        const response = await fetch(`/delete/${bookId}`, { method: 'DELETE' });
+        if (response.ok) {
+            searchBooks(); // Refresh the book list after deletion
+        }
     }
-}
+</script>
+   
+    
+</body>
+
+</html>
+
