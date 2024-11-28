@@ -44,7 +44,7 @@ const upload = multer({ storage: storage });
 // Connect to MongoDB
 dotenv.config();
 const mongoURI = process.env.MONGODB_URI || 'mongodb+srv://Samson:plks09113@cluster0.qnynx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'; 
-mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(mongoURI) // useNewUrlParser is a deprecated option: useNewUrlParser has no effect since Node.js Driver version 4.0.0 and will be removed in the next major version
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.error('MongoDB connection error:', err));
 
