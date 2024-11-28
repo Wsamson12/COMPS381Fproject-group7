@@ -12,7 +12,7 @@ This project was undertaken as a group assignment for the Server Side and Cloud 
 **Group Info:**
 **Group No.:** [Group 7]
 
-- **Students’ Names:** 13506699 Wong Ho Shun Sang , [Student 2 Name], [Student 3 Name], [Student 4 Name]
+- **Students’ Names:** 13506699 Wong Ho Shun Sang , [Student 2 Name], 13506718 Chow Cheuk Wai, 13653626 Tong Sum Long
 
 
 ## Project File Introduction
