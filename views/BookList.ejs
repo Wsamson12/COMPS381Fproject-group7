@@ -229,50 +229,43 @@
     }
     
     async function searchBooks() {
-       const searchTerm = document.getElementById("searchBox").value;
-    let url = '/search';
-    if (searchTerm) {
-        url += `?bookName=${encodeURIComponent(searchTerm)}`;
-    }
+        const searchTerm = document.getElementById("searchBox").value;
+        const response = await fetch(`/search?bookName=${encodeURIComponent(searchTerm)}`);
+        const books = await response.json();
 
-    const response = await fetch(`/search?bookName=${encodeURIComponent(searchTerm)}`);
-    const books = await response.json();
+        const tableBody = document.getElementById('bookTableBody');
+        tableBody.innerHTML = ''; // Clear existing rows
 
-    const tableBody = document.getElementById('bookTableBody');
-    tableBody.innerHTML = ''; // Clear existing rows
-
-    if (books.length === 0 && searchTerm) {
-        // If no books found and a search term is present
-        const row = document.createElement('tr');
-        row.innerHTML = '<td colspan="5">No books found</td>'; // Indicate no results
-        tableBody.appendChild(row);
-    } else {
-        // Populate the table with the books
-        books.forEach(book => {
+        if (books.length === 0 && searchTerm) {
+            // If no books found and a search term is present
             const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${book.name}</td>
-                <td>${book.type}</td>
-                <td><img src="${book.image}" alt="${book.name}" width="50" /></td>
-                <td>${book.description}</td>
-                <td>
-                    <button class="delete-button" onclick="deleteBook('${book._id}')">
-                        <i class="fa-solid fa-trash"></i>
-                    </button>
-                    <button class="edit-button" onclick="openUpdateForm('${book._id}', '${book.name}', '${book.type}', '${book.image}', '${book.description}')">
-                        <i class="fa-solid fa-pen-to-square"></i>
-                    </button>
-                </td>
-            `;
+            row.innerHTML = '<td colspan="5">No books found</td>'; // Indicate no results
             tableBody.appendChild(row);
-        });
+        } else {
+            // Populate the table with the books
+            books.forEach(book => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${book.name}</td>
+                    <td>${book.type}</td>
+                    <td><img src="${book.image}" alt="${book.name}" width="50" /></td>
+                    <td>${book.description}</td>
+                    <td>
+                        <button class="delete-button" onclick="deleteBook('${book._id}')">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                        <a href="/update/${book._id}">
+                            <button class="edit-button">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                        </a>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
     }
-}
 
-// Trigger searchBooks when input changes
-document.getElementById("searchBox").addEventListener("input", function() {
-    searchBooks();
-});
     async function deleteBook(bookId) {
         const response = await fetch(`/delete/${bookId}`, { method: 'DELETE' });
         if (response.ok) {
