@@ -153,7 +153,21 @@ app.get('/BookList', async (req, res) => {
     }
     try {
         const books = await Book.find({});
-        res.render('BookList', { books ,username: req.session.username}); // Pass books to the view
+        res.render('BookList', { books, username: req.session.username }); // Pass books to the view
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Server error');
+    }
+});
+
+// JSON route to fetch all books
+app.get('/BookList/json', async (req, res) => {
+    if (!req.session.username) {
+        return res.status(401).send('Unauthorized'); // Check for logged-in status
+    }
+    try {
+        const books = await Book.find({});
+        res.json(books); // Return books as JSON
     } catch (error) {
         console.error(error);
         res.status(500).send('Server error');
