@@ -130,22 +130,6 @@ app.post('/register', async (req, res) => {
     }
 });
 
-//search for recent registered user
-app.get('/user/latestuser', async (req, res) => {
-    try {
-        const user = await User.findOne().sort({ _id: -1 });
-
-        if(!user){
-            return res.status(404).send('No user found');
-        }
-        //get all data from latest user created
-        res.json(user);
-    }catch (error){
-        console.error(error); 
-        res.status(500).send('Server error');
-    }
-});
-
 // Book List route
 app.get('/BookList', async (req, res) => {
     if (!req.session.username) {
@@ -159,8 +143,6 @@ app.get('/BookList', async (req, res) => {
         res.status(500).send('Server error');
     }
 });
-
-
 
 // Create Book route
 app.get('/create', (req, res) => {
