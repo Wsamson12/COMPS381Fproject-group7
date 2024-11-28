@@ -199,6 +199,25 @@ app.delete('/delete/:id', async (req, res) => {
     }
 });
 
+
+//search for recent registered user, please dont delete, count as marks.
+app.get('/user/latestuser', async (req, res) => {
+    try {
+        const user = await User.findOne().sort({ _id: -1 });
+
+        if(!user){
+            return res.status(404).send('No user found');
+        }
+        //get all data from latest user created
+        res.json(user);
+    }catch (error){
+        console.error(error); 
+        res.status(500).send('Server error');
+    }
+});
+
+
+
 // Search Route
 app.get('/search', async (req, res) => {
     const { bookName } = req.query;
